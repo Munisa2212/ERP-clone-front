@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root{
+    --clr-gold: #bc8e5b
+}
+
+.ant-btn-primary{
+    background-color: var(--clr-gold) !important;
+}
+
+.ant-input-affix-wrapper-focused{
+    border-color: var(--clr-gold) !important;
+}
