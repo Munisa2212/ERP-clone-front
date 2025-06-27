@@ -3,26 +3,25 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button,  Form, Input } from 'antd';
 import { Context } from '../context/Context';
 import toast, { Toaster } from 'react-hot-toast';
+import { instance } from '../hooks/instance';
+import type { valueType } from 'antd/es/statistic/utils';
+import { useCookies } from 'react-cookie';
 
 const SignInForm: React.FC = () => {
+    const [_, setCookie] = useCookies(["token"])
     const [isloading, setIsloading] = useState(false)
     const {setToken} = useContext(Context)
-  const onFinish = ( values: {username: string, password: string}) => {
+
+  const onFinish = ( values: valueType) => {
     setIsloading(true)
-    fetch("http://localhost:3000/users").then(res => res.json()).then(data => {
-        const isUser = data.some((item: {username: string, password: string}) => item.username == values.username && item.password == values.password)
+    instance.post("/user/login", values).then(data => {
+        setIsloading(false)
+        toast.success("Welcome")
         setTimeout(() => {
-            if(isUser){
-                setTimeout(() => {
-                    setToken(true)
-                }, 1000)
-            }else{
-                toast.error("No user")
-            }
-            setIsloading(false)
-            
-        }, 1000)
-    })
+            setCookie("token", data.data.accessToken)
+            setToken(data.data.accessToken)
+            location.pathname = "/"
+        }, 500)}).catch(() => toast.error("No user found"))
   };
 
   return (

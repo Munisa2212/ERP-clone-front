@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 import {Groups, Home, Majors, Students, Teachers} from "../pages/Dashboard" 
 import { AimOutlined, BookOutlined, UsergroupDeleteOutlined, UserOutlined } from "@ant-design/icons"
 
@@ -40,23 +41,23 @@ export const DashboardRouteList = [
 
 export const NavList = [
     {
-        id: 1,
-        title: "Guruhlar",
+        key: 1,
+        label:<NavLink to={paths.groups}>Guruhlar</NavLink>,
         icon: <UsergroupDeleteOutlined />
     },
     {
-        id: 2,
-        title: "Yo'nalishlar",
+        key: 2,
+        label:<NavLink to={paths.majors}>Yo'nalishlar</NavLink>,
         icon: <AimOutlined />
     },
     {
-        id: 3,
-        title: "O'quvchilar",
+        key: 3,
+        label:<NavLink to={paths.students}>O'quvchilar</NavLink>,
         icon: <UserOutlined />
     },
     {
-        id: 4,
-        title: "Ustozlar",
+        key: 4,
+        label:<NavLink to={paths.teachers}>Ustozlar</NavLink>,
         icon: <BookOutlined />
     },
 ]
